@@ -1,5 +1,5 @@
-let N = 256;
-let iter = 16;
+let N = 128;
+let iter = 1;
 let SCALE = 8;
 let t = 0;
 

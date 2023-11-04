@@ -1,9 +1,10 @@
-let fluid;
+let fluid, player;
 
 function setup() {
-  createCanvas(1000, 1000);
-  frameRate(60);
+  createCanvas(800, 800);
+  frameRate(30);
   fluid = new Fluid(0.1, 0, 0.0000001);
+  player = new Player(0, 0, 20, "red");
 }
 
 function draw() {
@@ -17,6 +18,7 @@ function draw() {
       fluid.addDensity(cx + i, cy + j, random(50, 150));
     }
   }
+  
 
   for (let i = 0; i < 2; i++) {
     let angle = noise(t) * TWO_PI * 2;
@@ -27,4 +29,6 @@ function draw() {
   }
   fluid.step();
   fluid.renderD();
+  player.draw();
+  player.move();
 }
