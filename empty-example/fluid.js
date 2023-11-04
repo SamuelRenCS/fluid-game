@@ -1,4 +1,4 @@
-let N = 128;
+let N = 100;
 let iter = 1;
 let SCALE = 8;
 let t = 0;
@@ -50,12 +50,19 @@ class Fluid {
     project(Vx, Vy, Vx0, Vy0);
     diffuse(0, s, density, diff, dt);
     advect(0, density, s, Vx, Vy, dt);
+
+    this.fadeD();
   }
 
   // method to add density
   addDensity(x, y, amount) {
     let index = IX(x, y);
     this.density[index] += amount;
+  }
+
+  resetDensity(x, y) {
+    let index = IX(x, y);
+    this.density[index] = 0;
   }
 
   // method to add velocity
@@ -67,13 +74,13 @@ class Fluid {
 
   // function to render density
   renderD() {
-    colorMode(HSB, 255);
+    colorMode(RGB, 255);
     for (let i = 0; i < N; i++) {
       for (let j = 0; j < N; j++) {
         let x = i * SCALE;
         let y = j * SCALE;
         let d = this.density[IX(i, j)];
-        fill((d + 50) % 255,200,d);
+        fill(d % 255, 0, 0);
         noStroke();
         square(x, y, SCALE);
       }
@@ -88,7 +95,7 @@ class Fluid {
         let y = j * SCALE;
         let vx = this.Vx[IX(i, j)];
         let vy = this.Vy[IX(i, j)];
-       // stroke(0);
+        // stroke(0);
         stroke(255);
 
         if (!(abs(vx) < 0.1 && abs(vy) <= 0.1)) {
@@ -97,11 +104,10 @@ class Fluid {
       }
     }
   }
+
   fadeD() {
     for (let i = 0; i < this.density.length; i++) {
-      //let d = density[i];
-      this.density = constrain(this.density-0.02, 0, 255);
+      this.density[i] = Math.max(this.density[i] - 0.1, 0);
     }
   }
-  
 }
