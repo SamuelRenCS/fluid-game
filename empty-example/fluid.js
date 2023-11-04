@@ -1,6 +1,6 @@
 let N = 256;
 let iter = 16;
-let SCALE = 4;
+let SCALE = 8;
 let t = 0;
 
 // function to use 1D array and fake the extra two dimensions --> 3D

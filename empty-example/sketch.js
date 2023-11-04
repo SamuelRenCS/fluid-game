@@ -1,13 +1,13 @@
 let fluid;
 
 function setup() {
-  createCanvas(1200, 650);
+  createCanvas(1000, 1000);
   frameRate(60);
-  fluid = new Fluid(0.2, 0, 0.0000001);
+  fluid = new Fluid(0.1, 0, 0.0000001);
 }
 
 function draw() {
-  stroke(51);
+  stroke(500);
   strokeWeight(2);
 
   let cx = int((0.5 * width) / SCALE);
