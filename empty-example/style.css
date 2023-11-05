@@ -13,7 +13,7 @@ html {
 
 
 img {
-    max-width: 400px;
+    max-width: 350px;
 }
 
 .logo-container {
@@ -65,12 +65,12 @@ button {
     color: white;
     padding: 16px 32px;
     text-align: center;
-    font-size: 16px;
+    font-size: 24px;
     margin: 16px 2px; /* Spacing between buttons, adjust as necessary */
     opacity: 0.75;
     transition: 0.3s;
     cursor: pointer;
-    width: 20%; /* Adjust if you want to set a specific width for the buttons */
+    width: 35%; /* Adjust if you want to set a specific width for the buttons */
     /* Removed duplicate display property */
     text-decoration: none;
     transition: background-color 0.4s ease;
@@ -87,8 +87,7 @@ button:hover {
 .game-area {
     margin-top: 10px;
     margin-right: 50px;
-    zoom: 92%;
-}
+    zoom: 86%;
 
 .health-bar-container {
     margin-top: 20px;
