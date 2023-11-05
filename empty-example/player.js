@@ -2,14 +2,14 @@ class Player {
   constructor(x, y, size, color) {
     this.x = x;
     this.y = y;
-    this.size = size;
+    this.size = size * SCALE;
     this.color = color;
-    this.speed = size / 2;
+    this.speed = SCALE;
   }
 
   draw() {
     fill(this.color);
-    rect(this.x, this.y, this.size, this.size);
+    ellipse(this.x+this.size / 2, this.y + this.size / 2 , this.size, this.size);
   }
 
   // move

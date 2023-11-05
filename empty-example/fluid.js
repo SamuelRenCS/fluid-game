@@ -2,7 +2,7 @@ let N = 100;
 let iter = 1;
 let SCALE = 8;
 let t = 0;
-
+let speed = SCALE;
 // function to use 1D array and fake the extra two dimensions --> 3D
 function IX(x, y) {
   return x + y * N;
@@ -80,7 +80,7 @@ class Fluid {
         let x = i * SCALE;
         let y = j * SCALE;
         let d = this.density[IX(i, j)];
-        fill(d % 255, 0, 0);
+        fill(0, 0, (d) % 256);
         noStroke();
         square(x, y, SCALE);
       }
@@ -110,4 +110,7 @@ class Fluid {
       this.density[i] = Math.max(this.density[i] - 0.1, 0);
     }
   }
+
+
+
 }
