@@ -1,5 +1,10 @@
-let gamemode = 1;
+let modes = {
+    singleplayer: 0,
+    multiplayer: 1,
+    ffa: 2
+};
 
+let gamemode = modes.singleplayer;
 
 //Declaration of all buttons for changing gamemodes
 const singleplayerButton = document.getElementById('singleplayer-btn');
@@ -14,16 +19,13 @@ const changeGamemode = (mode) => {
 }
 
 singleplayerButton.addEventListener('click', () => {
-    changeGamemode(1);
+    changeGamemode(modes.singleplayer);
 });
 
 multiplayerButton.addEventListener('click', () => {
-    changeGamemode(2); 
+    changeGamemode(modes.multiplayer); 
 });
 
 ffaButton.addEventListener('click', () => {
-    changeGamemode(3);
+    changeGamemode(modes.ffa);
 });
-
-
-
