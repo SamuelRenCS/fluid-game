@@ -5,6 +5,7 @@ let modes = {
 };
 
 let gamemode;
+let gamemodeSelected = false;
 
 //Declaration of all buttons for changing gamemodes
 const singleplayerButton = document.getElementById("singleplayer-btn");
@@ -18,6 +19,7 @@ const buttons = [singleplayerButton, multiplayerButton, ffaButton]; // Array of 
 const changeGamemode = (mode) => {
   reset();
   gamemode = mode;
+  gamemodeSelected = true;
   setup();
 
   // Remove active class from all buttons
@@ -53,4 +55,4 @@ ffaButton.addEventListener("click", () => {
   healthBars.classList.add("hidden");
 });
 
-changeGamemode(modes.singleplayer);
+//changeGamemode(modes.singleplayer);

@@ -98,29 +98,35 @@ function setup() {
 }
 
 function draw() {
-  stroke(255);
-  strokeWeight(2);
+  background(0);
+  if (gamemodeSelected) {
+    stroke(255);
+    strokeWeight(2);
 
-  if (gamemode == 0) {
-    generateDye(fluid);
+    if (gamemode == 0) {
+      generateDye(fluid);
 
-    player.draw();
-    player.move();
+      player.draw();
+      player.move();
 
-    if (player.checkCollision(fluid)) {
-      noLoop();
-      reset();
-      loop();
+      if (player.checkCollision(fluid)) {
+        noLoop();
+        reset();
+        loop();
+      }
+    } else if (gamemode == 1) {
+      generateDye(fluid1, fluid2);
+      generateDye(fluid2, fluid1);
+      if (keyIsPressed) {
+        moveFluid(fluid2, fluid1);
+      }
+    } else if (gamemode == 2) {
+      generateDye(fluid3, fluid4);
+      generateDye(fluid4, fluid3);
+      if (keyIsPressed) {
+        moveFluid(fluid4, fluid3);
+      }
     }
-  } else if (gamemode == 1) {
-    generateDye(fluid1, fluid2);
-    generateDye(fluid2, fluid1);
-    if (keyIsPressed) {
-      moveFluid(fluid2, fluid1);
-    }
-  } else if (gamemode == 2) {
-    generateDye(fluid3, fluid4);
-    generateDye(fluid4, fluid3);
   }
 }
 
