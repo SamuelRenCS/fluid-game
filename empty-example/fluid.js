@@ -25,6 +25,7 @@ class Fluid {
     this.Vx0 = new Array(N * N).fill(0);
     this.Vy0 = new Array(N * N).fill(0);
     this.health = 100;
+    this.score = 0
   }
 
   // reset method for fluid

@@ -144,9 +144,13 @@ function draw() {
 function checkEndGame(fluid1, fluid2) {
   if (fluid1.health <= 0) {
     // fluid 2 wins
+    fluid2.score++;
+    updateScore(fluid2.score, "blue");
     reset();
   } else if (fluid2.health <= 0) {
     // fluid 1 wins
+    fluid1.score++;
+    updateScore(fluid1.score, "red");
     reset();
   }
 }

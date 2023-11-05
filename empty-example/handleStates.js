@@ -13,6 +13,7 @@ const multiplayerButton = document.getElementById("multiplayer-btn");
 const ffaButton = document.getElementById("ffa-btn");
 
 const healthBars = document.getElementById("health-bars");
+const score = document.getElementById("score");
 
 const buttons = [singleplayerButton, multiplayerButton, ffaButton]; // Array of buttons
 

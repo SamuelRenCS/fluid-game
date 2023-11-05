@@ -14,6 +14,7 @@
   <script src="player.js" defer></script>
   <script src="handleStates.js" defer></script>
   <script src="handleHealth.js" defer></script>
+  <script src="handleScore.js" defer></script>
 </head>
 
 <body>
@@ -33,6 +34,7 @@
     </nav>
     <div class="game-area">
       <div id="canvas-container">
+          <h2 id="score" class="hidden"><span id="red-score">0</span> - <span id="blue-score">0</span></h2>
       </div>
       <div class="health-bar-container hidden" id="health-bars">
         <h2 class="health-bar">RED: <span id="red-health">100</span>%</h2>
