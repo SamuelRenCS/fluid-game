@@ -28,7 +28,7 @@ let speed = SCALE;
 // we used 0.0000001 for viscosity
 
 let viscosity = 0;
-let dt = 0.1;
+let dt = 0.5;
 let playerColor = "white";
 
 let gamemode = 2;
@@ -39,7 +39,7 @@ let fluid1, fluid2;
 
 function setup() {
   createCanvas(800, 800);
-  frameRate(30);
+  frameRate(60);
 
   // ADD TIMESTEP FOR PLAYER
 

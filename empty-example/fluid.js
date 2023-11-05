@@ -93,6 +93,14 @@ class Fluid {
         let d1 = this.density[IX(i, j)];
         let d2 = otherFluid.density[IX(i, j)];
         fill(d2 % 256, 0, d1 % 256);
+
+        let vxAvg = (this.Vx[IX(i, j)] + otherFluid.Vx[IX(i, j)]) / 2;
+        let vyAvg = (this.Vy[IX(i, j)] + otherFluid.Vy[IX(i, j)]) / 2;
+        this.Vx[IX(i, j)] = vxAvg;
+        this.Vy[IX(i, j)] = vyAvg;
+        otherFluid.Vx[IX(i, j)] = vxAvg;
+        otherFluid.Vy[IX(i, j)] = vyAvg;
+
         noStroke();
         square(x, y, SCALE);
       }
