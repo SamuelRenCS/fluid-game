@@ -13,6 +13,7 @@
   <script src="sketch.js" defer></script>
   <script src="player.js" defer></script>
   <script src="handleStates.js" defer></script>
+  <script src="handleHealth.js" defer></script>
 </head>
 
 <body>
@@ -30,6 +31,16 @@
         <button id="ffa-btn" value="2">Playground</button>
       </div>
     </nav>
+    <div class="game-area">
+      <div id="canvas-container">
+      </div>
+      <div class="health-bar-container hidden" id="health-bars">
+        <h2 class="health-bar">RED: <span id="red-health">100</span>%</h2>
+        <h2 class="health-bar">BLUE: <span id="blue-health">100</span>%</h2>
+      </div>
+    </div>
+
+
   </main>
 </body>
 

@@ -128,11 +128,10 @@ class Fluid {
   damage() {
     if (this.color === "blue") {
       this.health = Math.max(this.health - red[IX(this.cx, this.cy)] * 0.01, 0);
+      updateHealth(this.health, "blue");
     } else if (this.color === "red") {
-      this.health = Math.max(
-        this.health - blue[IX(this.cx, this.cy)] * 0.01,
-        0
-      );
+      this.health = Math.max(this.health - blue[IX(this.cx, this.cy)] * 0.01, 0);
+      updateHealth(this.health, "red");
     }
 
     console.log(this.color + " " + this.health);

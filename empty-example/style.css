@@ -44,8 +44,6 @@ main {
 canvas {
     width: 100%;
     height: 100%;
-    margin-top: 10px;
-    margin-right: 50px;
 }
 
 .button-container {
@@ -82,4 +80,39 @@ button:hover {
 
 .active-game-mode {
     background-color: red;
+}
+
+.game-area {
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.health-bar-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Adjust if necessary to fit the design */
+}
+
+.health-bar {
+    width: 50%; /* Adjust if necessary to fit the design */
+    height: 20px; /* Adjust if necessary to fit the design */
+    border-radius: 4px;
+}
+
+.hidden {
+    display: none;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+#red-health {
+    background-color: red;
+}
+
+#blue-health {
+    background-color: blue;
+    color: white;
 }

@@ -11,6 +11,8 @@ const singleplayerButton = document.getElementById('singleplayer-btn');
 const multiplayerButton = document.getElementById('multiplayer-btn');
 const ffaButton = document.getElementById('ffa-btn');
 
+const healthBars = document.getElementById('health-bars');
+
 const buttons = [singleplayerButton, multiplayerButton, ffaButton]; // Array of buttons
 
 const changeGamemode = (mode) => {
@@ -34,16 +36,20 @@ const changeGamemode = (mode) => {
 singleplayerButton.addEventListener('click', () => {
     changeGamemode(modes.singleplayer);
     singleplayerButton.classList.add('active-game-mode');
+    healthBars.classList.add('hidden');
+
 });
 
 multiplayerButton.addEventListener('click', () => {
     changeGamemode(modes.multiplayer);
     multiplayerButton.classList.add('active-game-mode');
+    healthBars.classList.remove('hidden');
 });
 
 ffaButton.addEventListener('click', () => {
     changeGamemode(modes.ffa);
     ffaButton.classList.add('active-game-mode');
+    healthBars.classList.add('hidden');
 });
 
 changeGamemode(modes.singleplayer);

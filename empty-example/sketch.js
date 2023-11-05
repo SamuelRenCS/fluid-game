@@ -45,14 +45,15 @@ let color2 = "blue";
 let fluid3;
 
 function setup() {
-  createCanvas(800, 800);
+  var canvas = createCanvas(800, 800);
+  canvas.parent("canvas-container");
   frameRate(60);
 
   // ADD TIMESTEP FOR PLAYER
 
   if (gamemode == 0) {
     fluid = new Fluid(
-      dt,
+      0.1,
       0,
       viscosity,
       int((0.5 * width) / SCALE),
@@ -84,13 +85,13 @@ function draw() {
 
     if (player.checkCollision(fluid)) {
       noLoop();
+      
       reset();
       loop();
     }
   } else if (gamemode == 1) {
     generateDye(fluid1, fluid2);
     generateDye(fluid2, fluid1);
-
     if (keyIsPressed) {
       moveFluid(fluid1, fluid2);
     }
