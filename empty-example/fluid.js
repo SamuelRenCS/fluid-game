@@ -5,7 +5,7 @@ function IX(x, y) {
 
 // Fluid cube class
 class Fluid {
-  constructor(dt, diffusion, viscosity, cx, cy, color, t) {
+  constructor(dt, diffusion, viscosity, cx, cy, color, t, fade) {
     this.size = N;
     this.dt = dt;
     this.diff = diffusion;
@@ -14,6 +14,7 @@ class Fluid {
     this.cy = cy;
     this.color = color;
     this.t = t;
+    this.fade = fade;
 
     this.s = new Array(N * N).fill(0);
     this.density = new Array(N * N).fill(0);
@@ -169,7 +170,7 @@ class Fluid {
 
   fadeD() {
     for (let i = 0; i < this.density.length; i++) {
-      this.density[i] = Math.max(this.density[i] - 0.1, 0);
+      this.density[i] = Math.max(this.density[i] - this.fade, 0);
     }
   }
 

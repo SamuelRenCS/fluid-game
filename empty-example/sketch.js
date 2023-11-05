@@ -25,6 +25,10 @@ let t = 0;
 let t2 = 1000;
 let speed = SCALE;
 
+let defaultFade = 0.1;
+
+let lesserFade = 0.05;
+
 // color arrays
 let red = new Array(N * N).fill(0);
 let blue = new Array(N * N).fill(0);
@@ -60,11 +64,12 @@ function setup() {
       int((0.5 * width) / SCALE),
       int((0.5 * height) / SCALE),
       "blue",
-      t
+      t,
+      defaultFade
     );
     player = new Player(0, 0, 2, playerColor);
   } else if (gamemode == 1) {
-    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1, t);
+    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1, t, lesserFade);
     fluid2 = new Fluid(
       dt,
       0,
@@ -72,7 +77,8 @@ function setup() {
       width / SCALE - 2,
       height / SCALE - 2,
       color2,
-      t2
+      t2,
+      lesserFade
     );
   } else if (gamemode == 2) {
     fluid3 = new Fluid(
@@ -82,7 +88,8 @@ function setup() {
       int((0.25 * width) / SCALE),
       int((0.5 * height) / SCALE),
       "blue",
-      t
+      t,
+      lesserFade
     );
 
     fluid4 = new Fluid(
@@ -92,7 +99,8 @@ function setup() {
       int((0.75 * width) / SCALE),
       int((0.5 * height) / SCALE),
       "blue",
-      t2
+      t2,
+      lesserFade
     );
   }
 }
