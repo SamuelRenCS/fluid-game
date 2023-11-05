@@ -13,7 +13,7 @@ html {
 
 
 img {
-    max-width: 350px;
+    max-width: 250px;
 }
 
 .logo-container {
@@ -27,7 +27,7 @@ img {
 }
 
 h1 {
-    font-size: 5em;
+    font-size: 4em;
     display: inline;
 }
 
@@ -86,8 +86,9 @@ button:hover {
 
 .game-area {
     margin-top: 10px;
-    margin-right: 50px;
-    zoom: 86%;
+    margin-right: 6%;
+    zoom: 75%;
+}
 
 .health-bar-container {
     margin-top: 20px;
