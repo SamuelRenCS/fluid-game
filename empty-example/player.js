@@ -9,7 +9,12 @@ class Player {
 
   draw() {
     fill(this.color);
-    ellipse(this.x+this.size / 2, this.y + this.size / 2 , this.size, this.size);
+    ellipse(
+      this.x + this.size / 2,
+      this.y + this.size / 2,
+      this.size,
+      this.size
+    );
   }
 
   // move
@@ -28,11 +33,12 @@ class Player {
     }
   }
 
-  //   checkCollision() {
-  //     let index = IX(this.x, this.y);
-  //     let d = fluid.density[index];
-  //     if (d > 0) {
-  //       alert("collision");
-  //     }
-  //   }
+  checkCollision(fluid) {
+    let index = IX(this.x / SCALE, this.y / SCALE);
+    let d = fluid.density[index];
+    if (d > 24) {
+      return true;
+    }
+    return false;
+  }
 }

@@ -1,8 +1,3 @@
-let N = 100;
-let iter = 1;
-let SCALE = 8;
-let t = 0;
-let speed = SCALE;
 // function to use 1D array and fake the extra two dimensions --> 3D
 function IX(x, y) {
   return x + y * N;
@@ -10,11 +5,13 @@ function IX(x, y) {
 
 // Fluid cube class
 class Fluid {
-  constructor(dt, diffusion, viscosity) {
+  constructor(dt, diffusion, viscosity, cx, cy) {
     this.size = N;
     this.dt = dt;
     this.diff = diffusion;
     this.visc = viscosity;
+    this.cx = cx;
+    this.cy = cy;
 
     this.s = new Array(N * N).fill(0);
     this.density = new Array(N * N).fill(0);
@@ -80,7 +77,22 @@ class Fluid {
         let x = i * SCALE;
         let y = j * SCALE;
         let d = this.density[IX(i, j)];
-        fill(0, 0, (d) % 256);
+        fill(0, 0, d % 256);
+        noStroke();
+        square(x, y, SCALE);
+      }
+    }
+  }
+
+  renderD2(otherFluid) {
+    colorMode(RGB, 255);
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        let x = i * SCALE;
+        let y = j * SCALE;
+        let d1 = this.density[IX(i, j)];
+        let d2 = otherFluid.density[IX(i, j)];
+        fill(d2 % 256, 0, d1 % 256);
         noStroke();
         square(x, y, SCALE);
       }
@@ -110,7 +122,4 @@ class Fluid {
       this.density[i] = Math.max(this.density[i] - 0.1, 0);
     }
   }
-
-
-
 }
