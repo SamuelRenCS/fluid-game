@@ -24,18 +24,26 @@ let SCALE = 8;
 let t = 0;
 let speed = SCALE;
 
+// color arrays
+let red = new Array(N * N).fill(0);
+let blue = new Array(N * N).fill(0);
+
 // modifiable variables
 // we used 0.0000001 for viscosity
 
-let viscosity = 0;
+let viscosity = 0.0000001;
 let dt = 0.5;
 let playerColor = "white";
 
-let gamemode = 2;
-// for gamemode 1
+let gamemode = 1;
+// for gamemode 0
 let fluid, player;
-//for gamemode 2;
+//for gamemode 1;
 let fluid1, fluid2;
+let color1 = "red";
+let color2 = "blue";
+//for gamemode 2
+let fluid3;
 
 function setup() {
   createCanvas(800, 800);
@@ -43,7 +51,7 @@ function setup() {
 
   // ADD TIMESTEP FOR PLAYER
 
-  if (gamemode == 1) {
+  if (gamemode == 0) {
     fluid = new Fluid(
       dt,
       0,
@@ -52,16 +60,24 @@ function setup() {
       int((0.5 * height) / SCALE)
     );
     player = new Player(0, 0, 2, playerColor);
+  } else if (gamemode == 1) {
+    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1);
+    fluid2 = new Fluid(
+      dt,
+      0,
+      viscosity,
+      width / SCALE - 2,
+      height / SCALE - 2,
+      color2
+    );
   } else if (gamemode == 2) {
-    fluid1 = new Fluid(dt, 0, viscosity, 1, 1);
-    fluid2 = new Fluid(dt, 0, viscosity, width / SCALE - 2, height / SCALE - 2);
   }
 }
 
 function draw() {
   stroke(255);
   strokeWeight(2);
-  if (gamemode == 1) {
+  if (gamemode == 0) {
     generateDye(fluid);
 
     player.draw();
@@ -72,19 +88,20 @@ function draw() {
       reset();
       loop();
     }
-  } else if (gamemode == 2) {
+  } else if (gamemode == 1) {
     generateDye(fluid1, fluid2);
     generateDye(fluid2, fluid1);
 
     if (keyIsPressed) {
       moveFluid(fluid1, fluid2);
     }
+  } else if (gamemode == 2) {
   }
 }
 
 // reset function for each gamemode
 function reset() {
-  if (gamemode == 1) {
+  if (gamemode == 0) {
     fluid = new Fluid(
       dt,
       0,
@@ -93,9 +110,17 @@ function reset() {
       int((0.5 * height) / SCALE)
     );
     player = new Player(0, 0, 2, playerColor);
+  } else if (gamemode == 1) {
+    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1);
+    fluid2 = new Fluid(
+      dt,
+      0,
+      viscosity,
+      width / SCALE - 2,
+      height / SCALE - 2,
+      color2
+    );
   } else if (gamemode == 2) {
-    fluid1 = new Fluid(dt, 0, viscosity, 1, 1);
-    fluid2 = new Fluid(dt, 0, viscosity, width / SCALE - 2, height / SCALE - 2);
   }
 }
 
@@ -114,13 +139,15 @@ function generateDye(fluid, otherFluid) {
     v.mult(0.2);
     t += 0.01;
     fluid.addVelocity(fluid.cx, fluid.cy, v.x, v.y);
+    t += 0.01;
   }
 
   fluid.step();
-  if (gamemode == 1) {
+  if (gamemode == 0) {
     fluid.renderD();
-  } else if (gamemode == 2) {
+  } else if (gamemode == 1) {
     fluid.renderD2(otherFluid);
+    fluid.damage();
   }
   fluid.fadeD();
 }

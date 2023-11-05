@@ -5,13 +5,14 @@ function IX(x, y) {
 
 // Fluid cube class
 class Fluid {
-  constructor(dt, diffusion, viscosity, cx, cy) {
+  constructor(dt, diffusion, viscosity, cx, cy, color) {
     this.size = N;
     this.dt = dt;
     this.diff = diffusion;
     this.visc = viscosity;
     this.cx = cx;
     this.cy = cy;
+    this.color = color;
 
     this.s = new Array(N * N).fill(0);
     this.density = new Array(N * N).fill(0);
@@ -21,6 +22,7 @@ class Fluid {
 
     this.Vx0 = new Array(N * N).fill(0);
     this.Vy0 = new Array(N * N).fill(0);
+    this.health = 100;
   }
 
   // step method
@@ -84,6 +86,7 @@ class Fluid {
     }
   }
 
+  // function to render density in gamemode 1
   renderD2(otherFluid) {
     colorMode(RGB, 255);
     for (let i = 0; i < N; i++) {
@@ -92,35 +95,26 @@ class Fluid {
         let y = j * SCALE;
         let d1 = this.density[IX(i, j)];
         let d2 = otherFluid.density[IX(i, j)];
-        fill(d2 % 256, 0, d1 % 256);
 
+        if (this.color === "blue") {
+          fill(d2 % 256, 0, d1 % 256);
+          red[IX(i, j)] = d2 % 256;
+          blue[IX(i, j)] = d1 % 256;
+        } else if (this.color === "red") {
+          fill(d1 % 256, 0, d2 % 256);
+          red[IX(i, j)] = d1 % 256;
+          blue[IX(i, j)] = d2 % 256;
+        }
+        noStroke();
+        square(x, y, SCALE);
+
+        // compute average velocity for dye collision
         let vxAvg = (this.Vx[IX(i, j)] + otherFluid.Vx[IX(i, j)]) / 2;
         let vyAvg = (this.Vy[IX(i, j)] + otherFluid.Vy[IX(i, j)]) / 2;
         this.Vx[IX(i, j)] = vxAvg;
         this.Vy[IX(i, j)] = vyAvg;
         otherFluid.Vx[IX(i, j)] = vxAvg;
         otherFluid.Vy[IX(i, j)] = vyAvg;
-
-        noStroke();
-        square(x, y, SCALE);
-      }
-    }
-  }
-
-  // function to render velocity
-  renderV() {
-    for (let i = 0; i < N; i++) {
-      for (let j = 0; j < N; j++) {
-        let x = i * SCALE;
-        let y = j * SCALE;
-        let vx = this.Vx[IX(i, j)];
-        let vy = this.Vy[IX(i, j)];
-        // stroke(0);
-        stroke(255);
-
-        if (!(abs(vx) < 0.1 && abs(vy) <= 0.1)) {
-          line(x, y, x + vx * SCALE, y + vy * SCALE);
-        }
       }
     }
   }
@@ -129,5 +123,18 @@ class Fluid {
     for (let i = 0; i < this.density.length; i++) {
       this.density[i] = Math.max(this.density[i] - 0.1, 0);
     }
+  }
+
+  damage() {
+    if (this.color === "blue") {
+      this.health = Math.max(this.health - red[IX(this.cx, this.cy)] * 0.01, 0);
+    } else if (this.color === "red") {
+      this.health = Math.max(
+        this.health - blue[IX(this.cx, this.cy)] * 0.01,
+        0
+      );
+    }
+
+    console.log(this.color + " " + this.health);
   }
 }
