@@ -25,9 +25,8 @@ let t = 0;
 let t2 = 1000;
 let speed = SCALE;
 
-let defaultFade = 0.1;
-
-let lesserFade = 0.05;
+let defaultFade = 0.05;
+let lesserFade = 0.03;
 
 // color arrays
 let red = new Array(N * N).fill(0);
