@@ -1,6 +1,15 @@
 ## Try it Out
 [Link to website](https://philniko.github.io/fluid-game/empty-example/index.html)
 
+## How to play
+### Singleplayer
+- Move with arrow keys
+- Avoid the blue ink at all costs
+### Multiplayer
+- Player 1: move with arrow keys
+- Player 2: move with 'WASD'
+- Avoid enemy's ink and drown your opponent in your ink.
+
 ## Inspiration
 We were inspired by the properties and visuals that are associated with fluid dynamics. Wether its dropping ink in a bowl of water as a kid or studying the intricacies of its physical properties, we believe many of us have been fascinated by fluid dynamics at some point. Our goal is to provide a user friendly game to allow you to visualize some simple properties of this interesting field of physics.
 ## What it does
