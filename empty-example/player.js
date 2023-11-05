@@ -7,6 +7,13 @@ class Player {
     this.speed = SCALE;
   }
 
+  resetPlayer(x, y, size, color) {
+    this.x = x;
+    this.y = y;
+    this.size = size * SCALE;
+    this.color = color;
+  }
+
   draw() {
     fill(this.color);
     ellipse(

@@ -22,6 +22,7 @@ let N = 100;
 let iter = 1;
 let SCALE = 8;
 let t = 0;
+let t2 = 1000;
 let speed = SCALE;
 
 // color arrays
@@ -42,7 +43,7 @@ let fluid1, fluid2;
 let color1 = "red";
 let color2 = "blue";
 //for gamemode 2
-let fluid3;
+let fluid3, fluid4;
 
 function setup() {
   var canvas = createCanvas(800, 800);
@@ -53,24 +54,46 @@ function setup() {
 
   if (gamemode == 0) {
     fluid = new Fluid(
-      0.5,
+      dt - 0.2,
       0,
       viscosity,
       int((0.5 * width) / SCALE),
-      int((0.5 * height) / SCALE)
+      int((0.5 * height) / SCALE),
+      "blue",
+      t
     );
     player = new Player(0, 0, 2, playerColor);
   } else if (gamemode == 1) {
-    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1);
+    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1, t);
     fluid2 = new Fluid(
       dt,
       0,
       viscosity,
       width / SCALE - 2,
       height / SCALE - 2,
-      color2
+      color2,
+      t2
     );
   } else if (gamemode == 2) {
+    fluid3 = new Fluid(
+      dt,
+      0,
+      viscosity,
+      int((0.25 * width) / SCALE),
+      int((0.5 * height) / SCALE),
+      "blue",
+      t
+    );
+
+    fluid4 = new Fluid(
+      dt,
+      0,
+      viscosity,
+      int((0.75 * width) / SCALE),
+      int((0.5 * height) / SCALE),
+      "blue",
+      t2
+    );
   }
 }
 
@@ -86,7 +109,6 @@ function draw() {
 
     if (player.checkCollision(fluid)) {
       noLoop();
-      
       reset();
       loop();
     }
@@ -94,34 +116,62 @@ function draw() {
     generateDye(fluid1, fluid2);
     generateDye(fluid2, fluid1);
     if (keyIsPressed) {
-      moveFluid(fluid1, fluid2);
+      moveFluid(fluid2, fluid1);
     }
   } else if (gamemode == 2) {
+    generateDye(fluid3, fluid4);
+    generateDye(fluid4, fluid3);
   }
 }
 
 // reset function for each gamemode
 function reset() {
   if (gamemode == 0) {
-    fluid = new Fluid(
-      dt,
+    fluid.reset(
+      dt - 0.4,
       0,
       viscosity,
       int((0.5 * width) / SCALE),
-      int((0.5 * height) / SCALE)
+      int((0.5 * height) / SCALE),
+      "blue",
+      t
     );
-    player = new Player(0, 0, 2, playerColor);
+    player.resetPlayer(0, 0, 2, playerColor);
   } else if (gamemode == 1) {
-    fluid1 = new Fluid(dt, 0, viscosity, 1, 1, color1);
-    fluid2 = new Fluid(
+    fluid1.reset(dt, 0, viscosity, 1, 1, color1, t);
+    fluid2.reset(
       dt,
       0,
       viscosity,
       width / SCALE - 2,
       height / SCALE - 2,
-      color2
+      color2,
+      t2
     );
+
+    // reset color arrays
+    red.fill(0);
+    blue.fill(0);
   } else if (gamemode == 2) {
+    fluid3.reset(
+      dt,
+      0,
+      viscosity,
+      int((0.5 * width) / SCALE),
+      int((0.5 * height) / SCALE),
+      "blue",
+      t
+    );
+
+    fluid4.reset(
+      dt,
+      0,
+      viscosity,
+      int((0.75 * width) / SCALE),
+      int((0.5 * height) / SCALE),
+      "blue",
+      t2
+    );
   }
 }
 
@@ -135,12 +185,12 @@ function generateDye(fluid, otherFluid) {
   }
 
   for (let i = 0; i < 2; i++) {
-    let angle = noise(t) * TWO_PI * 2;
+    let angle = noise(fluid.t) * TWO_PI * 2;
     let v = p5.Vector.fromAngle(angle);
     v.mult(0.2);
-    t += 0.01;
+    fluid.t += 0.01;
     fluid.addVelocity(fluid.cx, fluid.cy, v.x, v.y);
-    t += 0.01;
+    fluid.t += 0.01;
   }
 
   fluid.step();
@@ -149,44 +199,50 @@ function generateDye(fluid, otherFluid) {
   } else if (gamemode == 1) {
     fluid.renderD2(otherFluid);
     fluid.damage();
+  } else if (gamemode == 2) {
+    fluid.renderDPaint(otherFluid);
   }
   fluid.fadeD();
 }
 
-function moveFluid(fluid1, fluid2) {
+// function to move fluid in gamemode 2
+
+function moveFluid(fluid1, fluid2 = null) {
   // Moves for fluid 1
   // left
-  if (keyIsDown(65) && fluid1.cx - 1 > 0) {
+  if (keyIsDown(LEFT_ARROW) && fluid1.cx - 1 > 0) {
     fluid1.cx -= 1;
   }
-  // right
-  if (keyIsDown(68) && fluid1.cx + 2 < width / SCALE) {
+  //right
+  if (keyIsDown(RIGHT_ARROW) && fluid1.cx + 2 < width / SCALE) {
     fluid1.cx += 1;
   }
-  // up
-  if (keyIsDown(87) && fluid1.cy - 1 > 0) {
+  //up
+  if (keyIsDown(UP_ARROW) && fluid1.cy - 1 > 0) {
     fluid1.cy -= 1;
   }
-  // down
-  if (keyIsDown(83) && fluid1.cy + 2 < height / SCALE) {
+  //down
+  if (keyIsDown(DOWN_ARROW) && fluid1.cy + 2 < height / SCALE) {
     fluid1.cy += 1;
   }
 
-  // Moves for fluid 2
-  // left
-  if (keyIsDown(LEFT_ARROW) && fluid2.cx - 1 > 0) {
-    fluid2.cx -= 1;
-  }
-  //right
-  if (keyIsDown(RIGHT_ARROW) && fluid2.cx + 2 < width / SCALE) {
-    fluid2.cx += 1;
-  }
-  //up
-  if (keyIsDown(UP_ARROW) && fluid2.cy - 1 > 0) {
-    fluid2.cy -= 1;
-  }
-  //down
-  if (keyIsDown(DOWN_ARROW) && fluid2.cy + 2 < height / SCALE) {
-    fluid2.cy += 1;
+  if (fluid2 != null) {
+    // Moves for fluid 2
+    // left
+    if (keyIsDown(65) && fluid2.cx - 1 > 0) {
+      fluid2.cx -= 1;
+    }
+    // right
+    if (keyIsDown(68) && fluid2.cx + 2 < width / SCALE) {
+      fluid2.cx += 1;
+    }
+    // up
+    if (keyIsDown(87) && fluid2.cy - 1 > 0) {
+      fluid2.cy -= 1;
+    }
+    // down
+    if (keyIsDown(83) && fluid2.cy + 2 < height / SCALE) {
+      fluid2.cy += 1;
+    }
   }
 }

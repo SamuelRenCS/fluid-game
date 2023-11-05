@@ -5,7 +5,7 @@ function IX(x, y) {
 
 // Fluid cube class
 class Fluid {
-  constructor(dt, diffusion, viscosity, cx, cy, color) {
+  constructor(dt, diffusion, viscosity, cx, cy, color, t) {
     this.size = N;
     this.dt = dt;
     this.diff = diffusion;
@@ -13,6 +13,7 @@ class Fluid {
     this.cx = cx;
     this.cy = cy;
     this.color = color;
+    this.t = t;
 
     this.s = new Array(N * N).fill(0);
     this.density = new Array(N * N).fill(0);
@@ -22,6 +23,28 @@ class Fluid {
 
     this.Vx0 = new Array(N * N).fill(0);
     this.Vy0 = new Array(N * N).fill(0);
+    this.health = 100;
+  }
+
+  // reset method for fluid
+  reset(dt, diffusion, viscosity, cx, cy, color, t) {
+    this.size = N;
+    this.dt = dt;
+    this.diff = diffusion;
+    this.visc = viscosity;
+    this.cx = cx;
+    this.cy = cy;
+    this.color = color;
+    this.t = t;
+
+    this.s.fill(0);
+    this.density.fill(0);
+
+    this.Vx.fill(0);
+    this.Vy.fill(0);
+
+    this.Vx0.fill(0);
+    this.Vy0.fill(0);
     this.health = 100;
   }
 
@@ -86,6 +109,31 @@ class Fluid {
     }
   }
 
+  //function to render density for paint
+
+  renderDPaint(otherFluid) {
+    colorMode(HSB, 255);
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        let x = i * SCALE;
+        let y = j * SCALE;
+        let d1 = this.density[IX(i, j)];
+        let d2 = otherFluid.density[IX(i, j)];
+        fill(d1 % 256, 255, d1 + (d2 % 256));
+        noStroke();
+        square(x, y, SCALE);
+
+        // compute average velocity for dye collision
+        let vxAvg = (this.Vx[IX(i, j)] + otherFluid.Vx[IX(i, j)]) / 2;
+        let vyAvg = (this.Vy[IX(i, j)] + otherFluid.Vy[IX(i, j)]) / 2;
+        this.Vx[IX(i, j)] = vxAvg;
+        this.Vy[IX(i, j)] = vyAvg;
+        otherFluid.Vx[IX(i, j)] = vxAvg;
+        otherFluid.Vy[IX(i, j)] = vyAvg;
+      }
+    }
+  }
+
   // function to render density in gamemode 1
   renderD2(otherFluid) {
     colorMode(RGB, 255);
@@ -130,10 +178,11 @@ class Fluid {
       this.health = Math.max(this.health - red[IX(this.cx, this.cy)] * 0.01, 0);
       updateHealth(this.health, "blue");
     } else if (this.color === "red") {
-      this.health = Math.max(this.health - blue[IX(this.cx, this.cy)] * 0.01, 0);
+      this.health = Math.max(
+        this.health - blue[IX(this.cx, this.cy)] * 0.01,
+        0
+      );
       updateHealth(this.health, "red");
     }
-
-    console.log(this.color + " " + this.health);
   }
 }
