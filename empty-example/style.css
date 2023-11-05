@@ -27,7 +27,7 @@ img {
 }
 
 h1 {
-    font-size: 6em;
+    font-size: 5em;
     display: inline;
 }
 
@@ -87,6 +87,7 @@ button:hover {
 .game-area {
     margin-top: 10px;
     margin-right: 50px;
+    zoom: 92%;
 }
 
 .health-bar-container {
