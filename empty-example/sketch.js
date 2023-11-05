@@ -110,9 +110,9 @@ function draw() {
       player.move();
 
       if (player.checkCollision(fluid)) {
-        noLoop();
+        //noLoop();
         reset();
-        loop();
+        //loop();
       }
     } else if (gamemode == 1) {
       generateDye(fluid1, fluid2);
@@ -120,6 +120,8 @@ function draw() {
       if (keyIsPressed) {
         moveFluid(fluid2, fluid1);
       }
+
+      checkEndGame(fluid1, fluid2);
     } else if (gamemode == 2) {
       generateDye(fluid3, fluid4);
       generateDye(fluid4, fluid3);
@@ -127,6 +129,17 @@ function draw() {
         moveFluid(fluid4, fluid3);
       }
     }
+  }
+}
+
+//function to check if game ended
+function checkEndGame(fluid1, fluid2) {
+  if (fluid1.health <= 0) {
+    // fluid 2 wins
+    reset();
+  } else if (fluid2.health <= 0) {
+    // fluid 1 wins
+    reset();
   }
 }
 
