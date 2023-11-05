@@ -35,8 +35,7 @@ let viscosity = 0.0000001;
 let dt = 0.5;
 let playerColor = "white";
 
-let gamemode = 1;
-// for gamemode 0
+// for gamemode 1
 let fluid, player;
 //for gamemode 1;
 let fluid1, fluid2;

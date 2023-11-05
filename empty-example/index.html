@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>p5.js example</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="../p5.min.js"></script>
-    <!-- <script src="../addons/p5.sound.js"></script> -->
-    <script src="fluid.js"></script>
-    <script src="fluid_utils.js"></script>
-    <script src="sketch.js"></script>
-    <script src="player.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluid Fights</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="../p5.min.js"></script>
+  <!-- <script src="../addons/p5.sound.js"></script> -->
+  <script src="fluid.js" defer></script>
+  <script src="fluid_utils.js" defer></script>
+  <script src="sketch.js" defer></script>
+  <script src="player.js" defer></script>
+  <script src="handleStates.js" defer></script> 
+</head>
+<body>
+  <main>
+    <nav id="navbar">
+      <ul class="navbar-items">
+          <li class="item">
+              <p class="logo">Fluid Fights</p>
+          </li>
+          <li class="item">
+              <button id="singleplayer-btn">Singleplayer</button>
+          </li>
+          <li class="item">
+              <button id="multiplayer-btn">Multiplayer</button>
+          </li>
+          <li class="item">
+              <button id="ffa-btn">Free-For-All</button>
+          </li>
+          <li class="item">
+              <button>Options</button>
+          </li>
+      </ul>
+    </nav>
+  </main>
+</body>
 
-  <body>
-    <main></main>
-  </body>
 </html>
