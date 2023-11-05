@@ -30,7 +30,7 @@ class Player {
     }
     if (keyIsDown(DOWN_ARROW) && this.y < height - this.size) {
       this.y += this.speed;
-    }
+    } 
   }
 
   checkCollision(fluid) {

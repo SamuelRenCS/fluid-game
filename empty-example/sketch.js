@@ -53,7 +53,7 @@ function setup() {
 
   if (gamemode == 0) {
     fluid = new Fluid(
-      0.1,
+      0.5,
       0,
       viscosity,
       int((0.5 * width) / SCALE),
@@ -77,6 +77,7 @@ function setup() {
 function draw() {
   stroke(255);
   strokeWeight(2);
+
   if (gamemode == 0) {
     generateDye(fluid);
 
