@@ -1,59 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-family: 'Black Ops One', sans-serif;
 }
 
-body {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-    background-color: #ffffff;
+html {
+    background-color:tan;
 }
+
+
+img {
+    width: 400px;
+}
+
+.logo-container {
+    display: flex;
+    /* Use flexbox to layout children elements */
+    align-items: center;
+    /* Center align items vertically */
+    justify-content: center;
+    /* Center align items horizontally */
+    padding-right: 6em;
+}
+
+h1 {
+    font-size: 6em;
+    display: inline;
+}
+
 
 main {
+    width: 100%;
+    height: 100%;
     display: flex;
-}
-
-
-#navbar{
-    padding: 25px;
-    margin-bottom: 15px;
-}
-
-.navbar-items {
-    list-style-type: none;
+    justify-content: center;
+    text-align: center;
     margin: 0;
-    padding: 0;
+    font-family: sans-serif;
 }
 
-.item {
-    margin-inline: 25px;
-    color: white;
-    font-size: 16px;
+canvas {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    margin-right: 50px;
 }
 
-.logo {
-    color: black;
-    font-size: 50px;
-    margin-right: 590px;
+.button-container {
+    display: flex; /* Use flexbox to layout children elements */
+    flex-direction: column; /* Align children in a column */
+    align-items: center; /* Center align items horizontally in the column */
+    justify-content: center; /* Center align items vertically */
+    width: 100%; /* Set to 100% of its parent, or adjust as necessary */
+    height: auto; /* Adjust the height as needed */
+    margin-top: 1em; /* Add some space at the top, adjust as necessary */
 }
 
-
-.item button {
-    background-color: grey;
+button {
+    background-color: blue;
     border: none;
+    border-radius: 4px;
     color: white;
     padding: 16px 32px;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
-    opacity: 0.8;
+    margin: 16px 2px; /* Spacing between buttons, adjust as necessary */
+    opacity: 0.75;
     transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
     cursor: pointer;
+    width: 20%; /* Adjust if you want to set a specific width for the buttons */
+    /* Removed duplicate display property */
+    text-decoration: none;
+    transition: background-color 0.4s ease;
 }
 
+button:hover {
+    opacity: 1;
+}
 
-.item button:hover {opacity: 1}
+.active-game-mode {
+    background-color: red;
+}
